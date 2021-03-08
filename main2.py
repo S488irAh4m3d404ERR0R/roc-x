@@ -1,8 +1,226 @@
-import base64, codecs
-magic = 'dmVyc2lvbj0iMi4xLjYiCiNJTVBPUlQKaW1wb3J0IGdldHBhc3MsdGltZSxvcwppbXBvcnQgc2lnbmFsCgppZiBvcy5wYXRoLmlzZGlyKCIvc2RjYXJkL1JPQy1YIikhPVRydWUgYW5kIG9zLnBhdGguaXNkaXIoIiRIT01FL0Rlc2t0b3AvUk9DLVgiKSE9VHJ1ZSA6Cgl0cnk6CgkJb3MubWtkaXIoIi9zZGNhcmQvUk9DLVgiKQoJZXhjZXB0OgoJCW9zLm1rZGlyKCIkSE9NRS9EZXNrdG9wL1JPQy1YIikKCiNDVkFMVUUKYmx1ZT0gJ1wzM1s5NG0nCmxpZ2h0Ymx1ZSA9ICdcMDMzWzk0bScKcmVkID0gJ1wwMzNbOTFtJwp3aGl0ZSA9ICdcMzNbOTdtJwp5ZWxsb3cgPSAnXDMzWzkzbScKZ3JlZW4gPSAnXDAzM1sxOzMybScKY3lhbiAgPSAiXDAzM1s5Nm0iCmVuZCA9ICdcMDMzWzBtJwpsaW5lPXllbGxvdysiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSIKc3BhY2U9IiAiCmxvZ289cmVkK3N0cigiIiIKICAgICA4ODg4ODg4Yi4gICAuZDg4ODg4Yi4gICAuZDg4ODhiLiAgICAgICBZODhiICAgZDg4UCAKICAgICA4ODggICBZODhiIGQ4OFAiICJZODhiIGQ4OFAgIFk4OGIgICAgICAgWTg4YiBkODhQICAKICAgICA4ODggICAgODg4IDg4OCAgICAgODg4IDg4OCAgICA4ODggICAgICAgIFk4OG84OFAgICAKICAgICA4ODggICBkODhQIDg4OCAgICAgODg4IDg4OCAgICAgICAgODg4ODg4ICBZODg4UCAgICAKICAgICA4ODg4ODg4UCIgIDg4OCAgICAgODg4IDg4OCAgICAgICAgODg4ODg4ICBkODg4YiAgICAKICAgICA4ODggVDg4YiAgIDg4OCAgICAgODg4IDg4OCAgICA4ODggICAgICAgIGQ4ODg4OGIgICAKICAgICA4ODggIFQ4OGIgIFk4OGIuIC5kODhQIFk4OGIgIGQ4OFAgICAgICAgZDg4UCBZODhiICAKICAgICA4ODggICBUODhiICAiWTg4ODg4UCIgICAiWTg4ODhQIiAgICAgICBkODhQICAgWTg4YiIiIikKCgoKb3Muc3lzdGVtKCJjbGVhciB8fCBjbHMiKQoKbm90aWNlPWdyZWVuKyIiCgojIERlZmluaXRpb24KCmRlZiBoZWFkZXIoKToKCXByaW50KGxvZ28rY3lhbisiXG5cblxuXHRcdERldmVsb3BlZCBCeSA6IFNhbmF1ciBBc2lmXG5cbiIrZ3JlZW4rIlx0XHQgICAgIFZlcnNpb24gOiAiK3N0cih2ZXJzaW9uKSsiIFxuXG4iK2VuZCtsaW5lKyJcbiIrZW5kKQoKZGVmIGNsZWFyKCk6Cglvcy5zeXN0ZW0oImNsZWFyIHx8IGNscyIpCgpjb3VudD0xCmFib3V0PTcKZV9jb3VudD0xCmRkb3NfY291bnQ9MQprYWxpX2NvdW50PTEKbXNfY291bnQ9MQpzbXNfY291bnQ9MQp0X2NvdW50PTEKCm9zLnN5c3RlbSgiY2xlYXIiKQpoZWFkZXIoKQpwcmludChjeWFuKyJcblx0XHRb4oCiXSBDaGVja2luZyBGb3IgVXBkYXRlcyIpCnRpbWUuc2xlZXAoMC43KQoKCnRyeToKCWltcG9ydCByZXF1ZXN0cwpleGNlcHQ6Cglvcy5zeXN0ZW0oInBpcCBpbnN0YWxsIHJlcXV'
-love = 'yp3EmVvxXnJ1jo3W0VUWypKIyp3EmPaV9pzIkqJImqUZhM2I0XPqbqUEjpmbiY3Oup3EyLzyhYzAioF9lLKpiZTH3D3cIGxpaXDc1pTAbL2f9pv50MKu0PzyzVUIjL2uwnm09qzIlp2yiowbXPKOup3ZXMJkcMvO1pTAbL2fuCKMypaAco246Ptyipl5mrKA0MJ0bVzAfMJSlVvxXPJuyLJEypvtcPtyjpzyhqPuwrJShXlWpovNtJ8XjKFOWoaA0LJkfnJ5aVSEbMFOIpTEuqTIxVSEio2kmYvOOoTkiqlOIpPO0olNkZPOgnJ51qTImVPVcPty0nJ1yYaAfMJIjXQVcPtyipl5mrKA0MJ0bVzAfMJSlVvxXPJ5iqTywMG1wrJShXlWpqSk0J8XjKFOWoaA0LJkfnJ5aVSIjMTS0MJDtIT9ioUZhYvOpovVXPJuyLJEypvtcPtyho3EcL2H9VvVXPKOlnJ50XPWpovVcPtywoTIupvtcPtyho3EcL2H9L3yuovfvKUEpqSivtXWqVRWuL2gcozptqKNtqTuyVSWCDl1LYv4hYvVXPJuyLJEypvtcPtyipl5mrKA0MJ0bVz1eMTylVPEVG01SY3WiLl14K3IjMTS0MKVvXDbWo3Zhp3ymqTIgXPWwpPNgpzLtWRuCGHHipz9wYKttWRuCGHHipz9wYKusqKOxLKEypvVcPty0pax6PtxWL2kyLKVbXDbWPJ5iqTywMG1wrJShXlWpqSk0J+XNby0tIKOxLKEcozptqTuyVSEio2kmYv4hYvVXPDybMJSxMKVbXDbWPJ9mYaA5p3EyoFtvL2DtWRuCGHHvXDbWPJ9mYaA5p3EyoFtvL2DtWRuCGHHtWvLtpz0tYKWzVUWiLl14VvxXPDyjpzyhqPuapzIyovxXPDyipl5mrKA0MJ0bVzAxVPEVG01SVPLzVTqcqPOwoT9hMFObqUEjpmbiY2qcqTu1Lv5wo20iHz9iqR9zD3yvMKVipz9wYKtvXDbWPJAfMJSlXPxXPDyho3EcL2H9M3WyMJ4eVyk0KUEo4bvnKFOIpTEuqTHtH3IwL2Imp2M1oPRvPtxWnTIuMTIlXPxXPDyjpzyhqPuwrJShXlWpovOo4bPv4bPv4bPvKFOHMKWAqKttHzImqTSlqPOcplOFMKS1nKWyMPOzo3VtITuyVSIjMTS0MF4tHTkyLKAyVSWyp3EupaDtITIloKI4VRMipvOHnTHtHx9QYIttIKOxLKEyMPOJMKWmnJ9hVvxXPDxwo3Zhn2yfoPuipl5aMKEjpTyxXPxfVUAcM25uoP5GFHqVIINcPtxWo3Zhp3ymqTIgXPWloFNgpzLtWRuCGHHipz9wYKusqKOxLKEypvVcPtxWMz9lVTxtnJ4tpzShM2HbBGx5BGx5BGx5BGxcBtbWPDyipl5mrKA0MJ0bVzAfMJSlVvxXPDxWLG1coaO1qPuwrJShXlWpovVdZGNeVvOoCy0tHTkyLKAyVRI4nKDtITIloKI4VTMlo20tGz90nJMcL2S0nJ9hVRWupv4tITuyovOOM2ScovOCpTIhVSWCDl1LVSEio2kmVRW5VQcpoykhVPVerJIfoT93XlWpqPOoZI0tEKucqPOHMKWgqKupoyk0VSflKFOCpTIhVSEypz11rPVeVykhKUDtJmAqVTAxVPEVG01SY3WiLl14Vvg5MJkfo3peVykhKUDtJmEqVPVerJIfoT93XlWjrKEbo24mVT1unJ4hpUypoykhVvxXPtyyrTAypUD6PtxWL2kyLKVbXDbWPJ5iqTywMG1lMJDeVyk0KUEoj5qqVSIjMTS0MFOTLJyfMJDuVtbWPJuyLJEypvtcPtxWp2cmnaA0p2umLw1coaO1qPuwrJShXlWpoykhKUDtVPNtVSOlMKAmVRIhqTIlVUEiVSWyp3EipzHtHx9QYItvXDbWPJ9mYaA5p3EyoFtvL2DtWRuCGHHvXDbWPJ9mYa'
-god = 'N5c3RlbSgiY2QgJEhPTUUgJiYgbWtkaXIgcm9jLXgiKQoJCW9zLnN5c3RlbSgiY2QgJEhPTUUgJiYgY3AgLXJmICRIT01FL3JvYy14X3VwZGF0ZXIvcm9jLXggJEhPTUUiKQoJCW9zLnN5c3RlbSgicm0gLXJmICRIT01FL3JvYy14X3VwZGF0ZXIiKQoJCW9zLnN5c3RlbSgicHl0aG9uMyAkSE9NRS9yb2MteC9tYWluLnB5IikKCQlmb3IgaSBpbiByYW5nZSg5OTk5OTk5OTk5OSk6CgkJCW9zLnN5c3RlbSgiY2xlYXIiKQoJCQlhPWlucHV0KGN5YW4rIlxuIioxMCsiIFs+XSBQbGVhc2UgRXhpdCBUZXJtdXggZnJvbSBOb3RpZmljYXRpb24gQmFyLiBUaGVuIEFnYWluIE9wZW4gUk9DLVggVG9vbHMgQnkgOlxuXG4gIit5ZWxsb3crIlx0IFsxXSBFeGl0IFRlcm11eFxuXHQgWzJdIE9wZW4gVGVybXV4IisiXG5cdCBbM10gY2QgJEhPTUUvcm9jLXgiK3llbGxvdysiXG5cdCBbNF0gIit5ZWxsb3crInB5dGhvbjMgbWFpbi5weVxuXG4iKQoKI01haW4gUGFnZQoKd2hpbGUgY291bnQ8MjoKCWNsZWFyKCkKCWhlYWRlcigpCglub3RpY2U9IiIKCXByaW50KGN5YW4rIlxuPT0+IFNlbGVjdCB0aGUgbnVtYmVyIG9mIHRoZSBvcHRpb24gdGhhdCB5b3Ugd2FudCB0byBzdGFydCBmcm9tIGJlbG93IDogIikKCXByaW50KHllbGxvdysiXG4gIFsxXSBCRCBTTVMgQm9tYmVyXG5cbiAgWzJdIFJPQy1YIFBoaXNoaW5nXG5cbiAgWzNdIEREb1MgQXR0YWNrZXJcblxuICBbNF0gS2FsaSBOZXRIdW50ZXJcblxuICBbNV0gTWV0YVNwbG9pdCBGcmFtZVdvcmtcblxuICBbNl0gRS1NYWlsIEJvbWJlclxuXG4gIFsiK3N0cihhYm91dCkrIl0gQ29udGFjdCBVcyIrZW5kKQoJbWFpbl9vcHQ9c3RyKGlucHV0KGJsdWUrIlxuWz5dIFNlbGVjdCBZb3VyIE9wdGlvbiA6ICIreWVsbG93KSkKCQoJaWYgbWFpbl9vcHQ9PSIxIjoKCQlpZiBzbXNfY291bnQ9PTE6CgkJCWltcG9ydCBiZHNtcwoJCQlzbXNfY291bnQ9MgoJCWVsc2U6CgkJCXRyeToKCQkJCXJlbG9hZChiZHNtcykKCQkJZXhjZXB0OgoJCQkJdHJ5OgoJCQkJCWltcG9ydCBpbXAKCQkJCQlpbXAucmVsb2FkKGJkc21zKQoJCQkJZXhjZXB0OgoJCQkJCWltcG9ydCBpbXBvcnRsaWIKCQkJCQlpbXBvcnRsaWIucmVsb2FkKGJkc21zKQoJZWxpZiBtYWluX29wdD09IjIiOgoJCWlmIHRfY291bnQ9PTE6CgkJCWltcG9ydCB0CgkJCXRfY291bnQ9MgoJCWVsc2U6CgkJCXRyeToKCQkJCXJlbG9hZCh0KQoJCQlleGNlcHQ6CgkJCQl0cnk6CgkJCQkJaW1wb3J0IGltcAoJCQkJCWltcC5yZWxvYWQodCkKCQkJCWV4Y2VwdDoKCQkJCQlpbXBvcnQgaW1wb3J0bGliCgkJCQkJaW1wb3J0bGliLnJlbG9hZCh0KQoJCgllbGlmIG1haW5fb3B0PT0iNiI6CgkJaWYgZV9jb3VudD09MToKCQkJaW1wb3J0IGVtYWlsdG9vbAoJCQllX2NvdW50PTIKCQllbHNlOgoJCQl0cnk6CgkJCQlyZWxvYWQoZW1haWx0b29sKQoJCQlleGNlcHQ6CgkJCQl0cnk6CgkJCQkJaW1wb3J0IGltcAoJCQkJCWltcC5yZWxvYWQoZW1haWx0b'
-destiny = '29fXDbWPDxWMKuwMKO0BtbWPDxWPJygpT9lqPOcoKOipaEfnJVXPDxWPDycoKOipaEfnJVhpzIfo2SxXTIgLJyfqT9ioPxXPDxWPDxXPDyho3EcL2H9VvVXPDywo3IhqQ0kPtyyoTyzVT1unJ5so3O0CG0vZlV6PtxWnJLtMTEip19wo3IhqQ09ZGbXPDxWnJ1jo3W0VTExo3Aso3O0PtxWPJExo3AsL291oaD9ZtbWPJIfp2H6PtxWPKElrGbXPDxWPKWyoT9uMPuxMT9mK29jqPxXPDxWMKuwMKO0BtbWPDxWqUW5BtbWPDxWPJygpT9lqPOcoKNXPDxWPDycoKNhpzIfo2SxXTExo3Aso3O0XDbWPDxWMKuwMKO0BtbWPDxWPJygpT9lqPOcoKOipaEfnJVXPDxWPDycoKOipaEfnJVhpzIfo2SxXTExo3Aso3O0XDbWMJkcMvOgLJyhK29jqQ09VwDvBtbWPJyzVTguoTysL291oaD9CGR6PtxWPJygpT9lqPOeLJkcPtxWPJguoTysL291oaD9ZtbWPJIfp2H6PtxWPKElrGbXPDxWPKWyoT9uMPueLJkcXDbWPDyyrTAypUD6PtxWPDy0pax6PtxWPDxWnJ1jo3W0VTygpNbWPDxWPJygpP5lMJkiLJDbn2SfnFxXPDxWPJI4L2IjqQbXPDxWPDycoKOipaDtnJ1jo3W0oTyvPtxWPDxWnJ1jo3W0oTyvYaWyoT9uMPueLJkcXDbWPDbWMJkcMvOgLJyhK29jqQ09VwHvBtbWPJyzVT1mK2AiqJ50CG0kBtbWPDycoKOipaDtoKAso3O0PtxWPJ1mK2AiqJ50CGVXPDyyoUAyBtbWPDy0pax6PtxWPDylMJkiLJDboKAso3O0XDbWPDyyrTAypUD6PtxWPDy0pax6PtxWPDxWnJ1jo3W0VTygpNbWPDxWPJygpP5lMJkiLJDboKAso3O0XDbWPDxWMKuwMKO0BtbWPDxWPJygpT9lqPOcoKOipaEfnJVXPDxWPDycoKOipaEfnJVhpzIfo2SxXT1mK29jqPxXPDxXPJIfnJLtoJScoy9ipUD9CKA0pvuuLz91qPx6PtxWoz90nJAyCFVvPtxWpUWcoaDbL3yuovfvKT5poyk0JJ91qUIvMGbvX3yyoTkiqlfvKT5poyk0nUE0pUZ6Yl93q3phrJ91qUIvMF5wo20iLl9Fo290G2MQrJWypvVeL3yuovfvKT5poyk0EzSwMJWio2f6Vvg5MJkfo3peVykhKT5pqTu0qUOmBv8iq3q3YzMuL2Ivo29eYzAioF9Fo290G2MQrJWypvVeL3yuovfvKT5poyk0I2uuqSjaplOupUN6Vvg5MJkfo3peVykhKT5pqTu0qUOmBv8iL2uuqP53nTS0p2SjpP5wo20iFyOHG1qfp0cbnTqSIaE6nUD0qRSfpvVeL3yuovfvKT5poyk0ITIfMJqlLJ06KT4vX3yyoTkiqlfvnUE0pUZ6Yl90Yz1yY2cinJ5wnTS0Y1WGL0H0rRL4ITyEFH9mZybvX2A5LJ4eVykhKT5poykhKUEQo250LJA0VSImBvVerJIfoT93XlWpoykhKUElo290o2MwrJWypxOaoJScoP5wo20vX2A5LJ4eVykhKT5poyk0ETI2MJkipTIxVRW5VPVerJIfoT93XlWGLJ5uqKVtDKAcMvVeL3yuovfvKT5pqRMPBvVerJIfoT93XlVtnUE0pUZ6Yl9zLv5wo20ip2ShLKIlYzSmnJLhAmVvXDbWPJR9nJ5jqKDbL3yuovfvKT5poyk0KUEoCy0tHUWyp3ZtVvg5MJkfo3peVxIhqTIlVvgwrJShXlVtqT8tD29hqTyhqJHvXDbWPJAiqJ50CGRXPJIfp2H6PtxWL2kyLKVbXDbWPJ5iqTywMG1lMJDeVyk0KUEoj5qqVSqlo25aVR9jqTyiovOSoaEypzIxVFVXPDywo3IhqQ0k'
-joy = '\x72\x6f\x74\x31\x33'
-trust = eval('\x6d\x61\x67\x69\x63') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x6c\x6f\x76\x65\x2c\x20\x6a\x6f\x79\x29') + eval('\x67\x6f\x64') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x65\x73\x74\x69\x6e\x79\x2c\x20\x6a\x6f\x79\x29')
-eval(compile(base64.b64decode(eval('\x74\x72\x75\x73\x74')),'<string>','exec'))
+version="2.1.7"
+#IMPORT
+import getpass,time,os
+import signal
+
+if os.path.isdir("/sdcard/ROC-X")!=True and os.path.isdir("$HOME/Desktop/ROC-X")!=True :
+	try:
+		os.mkdir("/sdcard/ROC-X")
+	except:
+		os.mkdir("$HOME/Desktop/ROC-X")
+
+#CVALUE
+blue= '\33[94m'
+lightblue = '\033[94m'
+red = '\033[91m'
+white = '\33[97m'
+yellow = '\33[93m'
+green = '\033[1;32m'
+cyan  = "\033[96m"
+end = '\033[0m'
+line=yellow+"======================================================================================================================"
+space=" "
+logo=red+str("""
+     8888888b.   .d88888b.   .d8888b.       Y88b   d88P 
+     888   Y88b d88P" "Y88b d88P  Y88b       Y88b d88P  
+     888    888 888     888 888    888        Y88o88P   
+     888   d88P 888     888 888        888888  Y888P    
+     8888888P"  888     888 888        888888  d888b    
+     888 T88b   888     888 888    888        d88888b   
+     888  T88b  Y88b. .d88P Y88b  d88P       d88P Y88b  
+     888   T88b  "Y88888P"   "Y8888P"       d88P   Y88b""")
+
+
+
+os.system("clear || cls")
+
+notice=green+""
+
+# Definition
+
+def header():
+	print(logo+cyan+"\n\n\n\t\tDeveloped By : Sanaur Asif\n\n"+green+"\t\t     Version : "+str(version)+" \n\n"+end+line+"\n"+end)
+
+def clear():
+	os.system("clear || cls")
+
+count=1
+about=7
+e_count=1
+ddos_count=1
+kali_count=1
+ms_count=1
+sms_count=1
+t_count=1
+
+os.system("clear")
+header()
+print(cyan+"\n\t\t[•] Checking For Updates")
+time.sleep(0.7)
+
+
+try:
+	import requests
+except:
+	os.system("pip install requests")
+import requests
+r=requests.get('https://pastebin.com/raw/0e7CzUNG')
+upchck=r.text
+if upchck==version:
+	pass
+elif upchck!=version:
+	os.system("clear")
+	header()
+	print(cyan+"\n  [°] Installing The Updated Tools. Allow Up to 10 minutes ")
+	time.sleep(2)
+	os.system("clear")
+	notice=cyan+"\t\t[°] Installing Updated Tools.. \n"
+	header()
+	notice=""
+	print("\n")
+	clear()
+	notice=cyan+"\t\t[•] Backing up the ROC-X...."
+	header()
+	os.system("mkdir $HOME/roc-x_updater")
+	os.system("cp -rf $HOME/roc-x $HOME/roc-x_updater")
+	try:
+		clear()
+		notice=cyan+"\t\t[•] Updating the Tools...."
+		header()
+		os.system("cd $HOME")
+		os.system("cd $HOME && rm -rf roc-x")
+		print(green)
+		os.system("cd $HOME && git clone https://github.com/RootOfCyber/roc-x")
+		clear()
+		notice=green+"\t\t[√] Update Successful!"
+		header()
+		print(cyan+"\n [•••] TerMux Restart is Required for The Update. Please Restart Termux For The ROC-X Updated Version")
+		#os.kill(os.getppid(), signal.SIGHUP)
+		os.system("rm -rf $HOME/roc-x_updater")
+		for i in range(99999999999):
+			os.system("clear")
+			a=input(cyan+"\n"*10+" [>] Please Exit Termux from Notification Bar. Then Again Open ROC-X Tools By :\n\n "+yellow+"\t [1] Exit Termux\n\t [2] Open Termux"+"\n\t [3] cd $HOME/roc-x"+yellow+"\n\t [4] "+yellow+"python3 main.py\n\n")
+
+	except:
+		clear()
+		notice=red+"\t\t[×] Update Failed!"
+		header()
+		sjsjstshsb=input(cyan+"\n\n\t     Press Enter to Restore ROC-X")
+		os.system("cd $HOME")
+		os.system("cd $HOME && mkdir roc-x")
+		os.system("cd $HOME && cp -rf $HOME/roc-x_updater/roc-x $HOME")
+		os.system("rm -rf $HOME/roc-x_updater")
+		os.system("python3 $HOME/roc-x/main.py")
+		for i in range(99999999999):
+			os.system("clear")
+			a=input(cyan+"\n"*10+" [>] Please Exit Termux from Notification Bar. Then Again Open ROC-X Tools By :\n\n "+yellow+"\t [1] Exit Termux\n\t [2] Open Termux"+"\n\t [3] cd $HOME/roc-x"+yellow+"\n\t [4] "+yellow+"python3 main.py\n\n")
+
+#Main Page
+
+while count<2:
+	clear()
+	header()
+	notice=""
+	print(cyan+"\n==> Select the number of the option that you want to start from below : ")
+	print(yellow+"\n  [1] BD SMS Bomber\n\n  [2] ROC-X Phishing\n\n  [3] DDoS Attacker\n\n  [4] Kali NetHunter\n\n  [5] MetaSploit FrameWork\n\n  [6] E-Mail Bomber\n\n  ["+str(about)+"] Contact Us"+end)
+	main_opt=str(input(blue+"\n[>] Select Your Option : "+yellow))
+	
+	if main_opt=="1":
+		if sms_count==1:
+			import bdsms
+			sms_count=2
+		else:
+			try:
+				reload(bdsms)
+			except:
+				try:
+					import imp
+					imp.reload(bdsms)
+				except:
+					import importlib
+					importlib.reload(bdsms)
+	elif main_opt=="2":
+		if t_count==1:
+			import t
+			t_count=2
+		else:
+			try:
+				reload(t)
+			except:
+				try:
+					import imp
+					imp.reload(t)
+				except:
+					import importlib
+					importlib.reload(t)
+	
+	elif main_opt=="6":
+		if e_count==1:
+			import emailtool
+			e_count=2
+		else:
+			try:
+				reload(emailtool)
+			except:
+				try:
+					import imp
+					imp.reload(emailtool)
+				except:
+					import importlib
+					importlib.reload(emailtool)
+					
+		notice=""
+		count=1
+	elif main_opt=="3":
+		if ddos_count==1:
+			import ddos_opt
+			ddos_count=2
+		else:
+			try:
+				reload(ddos_opt)
+			except:
+				try:
+					import imp
+					imp.reload(ddos_opt)
+				except:
+					import importlib
+					importlib.reload(ddos_opt)
+	elif main_opt=="4":
+		if kali_count==1:
+			import kali
+			kali_count=2
+		else:
+			try:
+				reload(kali)
+			except:
+				try:
+					import imp
+					imp.reload(kali)
+				except:
+					import importlib
+					importlib.reload(kali)
+		
+	elif main_opt=="5":
+		if ms_count==1:
+			import ms_opt
+			ms_count=2
+		else:
+			try:
+				reload(ms_opt)
+			except:
+				try:
+					import imp
+					imp.reload(ms_opt)
+				except:
+					import importlib
+					importlib.reload(ms_opt)
+		
+	elif main_opt==str(about):
+		notice=""
+		print(cyan+"\n\n\tYoutube:"+yellow+"\n\n\thttps://www.youtube.com/c/RootOfCyber"+cyan+"\n\n\tFacebook:"+yellow+"\n\n\thttps://www.facebook.com/RootOfCyber"+cyan+"\n\n\tWhat\'s app:"+yellow+"\n\n\thttps://chat.whatsapp.com/JPTOWlsJhhgEVtzht4tAlr"+cyan+"\n\n\tTelegram:\n"+yellow+"https://t.me/joinchat/RScE4xF8TiQIOs2Z"+cyan+"\n\n\n\n\tContact Us:"+yellow+"\n\n\trootofcyber@gmail.com"+cyan+"\n\n\n\tDeveloped By "+yellow+"Sanaur Asif"+cyan+"\n\tFB:"+yellow+" https://fb.com/sanaur.asif.72")
+		a=input(cyan+"\n\n\t\t[>] Press "+yellow+"Enter"+cyan+" to Continue")
+		count=1
+	else:
+		clear()
+		notice=red+"\t\t[×] Wrong Option Entered!"
+		count=1
