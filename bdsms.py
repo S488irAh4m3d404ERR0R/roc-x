@@ -62,7 +62,7 @@ while tt<2:
 		totalnotsent=0
 		while ammount2<ammount+1:
 			try:
-				if "014" in number or "019" in number:
+				if "yy" in number or "yyy" in number:
 					r=requests.post("https://assetliteapi.banglalink.net/api/v1/user/otp-login/request",data={"mobile":number})
 						
 				else:
