@@ -16,19 +16,24 @@ end = '\033[0m'
 line=yellow+"======================================================================================================================"
 space=" "
 logo=red+str("""
-     8888888b.   .d88888b.   .d8888b.       Y88b   d88P 
-     888   Y88b d88P" "Y88b d88P  Y88b       Y88b d88P  
-     888    888 888     888 888    888        Y88o88P   
-     888   d88P 888     888 888        888888  Y888P    
-     8888888P"  888     888 888        888888  d888b    
-     888 T88b   888     888 888    888        d88888b   
-     888  T88b  Y88b. .d88P Y88b  d88P       d88P Y88b  
-     888   T88b  "Y88888P"   "Y8888P"       d88P   Y88b                                                      
+     .  
+
+██████╗░░█████╗░███╗░░░███╗██████╗░
+
+██╔══██╗██╔══██╗████╗░████║██╔══██╗
+
+██████╦╝██║░░██║██╔████╔██║██████╦╝
+
+██╔══██╗██║░░██║██║╚██╔╝██║██╔══██╗
+
+██████╦╝╚█████╔╝██║░╚═╝░██║██████╦╝
+
+╚═════╝░░╚════╝░╚═╝░░░░░╚═╝╚═════╝░                           
 """)
 
       
  #HEADER                
-text=cyan+"\t\tDeveloped By : Sanaur Asif"+green+"\n\n\t\t★★ ROC-X BD SMS Bomber ★★   \n" 
+text=cyan+"\t\tDeveloped By : Toxiced Vau"+green+"\n\n\t\t♤♤ S488IR BD SMS Bomber ♤♤   \n" 
 notice=""     
 def header():
 	print(logo)
@@ -38,7 +43,7 @@ def header():
 #SELECT_MAIN
 def opt():
 	print(cyan+"\n==> Select Your Option From Below")
-	print(yellow+"\n\n [1] Start BD SMS Bombing\n\n [2] Back to ROC-X")
+	print(yellow+"\n\n [1] Start BD SMS Bombing\n\n [2] Back to BOMB")
 	
 
 #MAIN_TOOL
@@ -49,13 +54,13 @@ opt()
 while tt<2:
 	opt2=str(input(blue+"\n\n [>] Enter the number of option : "+yellow))
 	if opt2=="1":
-		text=cyan+"\t\tDeveloped By : Sanaur Asif"+green+"\n\n\t\t★★ ROC-X BD SMS Bomber ★★   \n" 
+		text=cyan+"\t\tDeveloped By : Toxiced Vau"+green+"\n\n\t\t♤♤ S488IR BD SMS Bomber ♤♤   \n" 
 		os.system('clear')
 		header()
-		number=str(input(blue+"\n\n [>] Enter The BD Number : "+yellow))
-		ammount=int(input(blue+"\n [>] Enter The Ammount : "+yellow))
+		number=str(input(blue+"\n\n [♡>] Enter The BD Number : "+yellow))
+		ammount=int(input(blue+"\n [♡>] Enter The Ammount : "+yellow))
 		os.system('clear')
-		notice=cyan+"\n\t   [•] ROC-X Tools in progress......\n\n"
+		notice=cyan+"\n\t   [▷] Mr.ERT0R Tools in progress......\n\n"
 		header()
 		ammount2=1
 		totalsent=0
@@ -75,25 +80,25 @@ while tt<2:
 						
 						
 				if ammount2==1:
-					print(cyan+"\n\t  ★★ROC-X★★==>   "+green+"[✓] 1st SMS Sent.")
+					print(cyan+"\n\t  ︻┳═一 Toxcied★★==>   "+green+"[✓] 1st SMS Sent.")
 				elif ammount2==2:
-					print(cyan+"\n\t  ★★ROC-X★★==>   "+green+"[✓] 2nd SMS Sent.")
+					print(cyan+"\n\t  ︻┳═一 Toxcied★★==>   "+green+"[✓] 2nd SMS Sent.")
 				elif ammount2==3:
-					print(cyan+"\n\t  ★★ROC-X★★==>   "+green+"[✓] 3rd SMS Sent.")
+					print(cyan+"\n\t  ︻┳═一 Toxcied★★==>   "+green+"[✓] 3rd SMS Sent.")
 				else:
-					print(cyan+"\n\t  ★★ROC-X★★==>   "+green+"[✓] "+str(ammount2)+"th SMS Sent.")
+					print(cyan+"\n\t  ︻┳═一 Toxcied★★==>   "+green+"[✓] "+str(ammount2)+"th SMS Sent.")
 				time.sleep(1)
 				totalsent+=1
 				ammount2+=1
 			except:
 				if ammount2==1:
-					print(cyan+"\n\t  ★★ROC-X★★==>   "+red+"[×] 1st SMS Not Sent.")
+					print(cyan+"\n\t  ︻┳═一 Toxcied★★==>   "+red+"[×] 1st SMS Not Sent.")
 				elif ammount2==2:
-					print(cyan+"\n\t  ★★ROC-X★★==>   "+red+"[×] 2nd SMS Not Sent.")
+					print(cyan+"\n\t  ︻┳═一 Toxcied★★==>   "+red+"[×] 2nd SMS Not Sent.")
 				elif ammount2==3:
-					print(cyan+"\n\t  ★★ROC-X★★==>   "+red+"[×] 3rd SMS Not Sent.")
+					print(cyan+"\n\t  ︻┳═一 Toxcied★★==>   "+red+"[×] 3rd SMS Not Sent.")
 				else:
-					print(cyan+"\n\t  ★★ROC-X★★==>   "+red+"[×] "+str(ammount2)+"th SMS Not Sent.")
+					print(cyan+"\n\t  ︻┳═一 Toxcied★★==>   "+red+"[×] "+str(ammount2)+"th SMS Not Sent.")
 					time.sleep(10)
 					ammount2+=1
 									
@@ -106,7 +111,7 @@ while tt<2:
 		lastt=str(input(cyan+"\n\n\t\t  [✓] All Done!\n\t [•] Now Press Enter Key To Continue\n"))
 		os.system('clear')
 		notice=""
-		text=green+"\n\n\t\t★★★ROC-X SMS Tools★★★   \n" 
+		text=green+"\n\n\t\t➔➩Mr.ERR0R SMS Tools ღ   \n" 
 		header()
 		opt()
 	
@@ -114,7 +119,7 @@ while tt<2:
 	elif opt2=="2":
 		os.system("python3 main2.py")
 	else:
-		text=cyan+"\t\tDeveloped By : Sanaur Asif"+green+"\n\n\t\t★★ ROC-X BD SMS Bomber ★★   \n" 
+		text=cyan+"\t\tDeveloped By : Toxiced Vau"+green+"\n\n\t\t︻╦╤─´-S488IR BD SMS Bomber ★★   \n" 
 		notice=red+"\n\t\t[×] Wrong Value Entered"
 		os.system('clear')
 		header()
